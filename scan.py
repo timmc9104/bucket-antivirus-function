@@ -216,6 +216,11 @@ def lambda_handler(event, context):
     if str_to_bool(AV_PROCESS_ORIGINAL_VERSION_ONLY):
         verify_s3_object_version(s3, s3_object)
 
+    print(
+        "Scan of s3://%s started at %s\n"
+        % (os.path.join(s3_object.bucket_name, s3_object.key), start_time)
+    )
+    
     # Publish the start time of the scan
     if AV_SCAN_START_SNS_ARN not in [None, ""]:
         start_scan_time = get_timestamp()
